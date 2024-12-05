@@ -1,4 +1,4 @@
-import 'package:image/image.dart' as image_lib;
+import 'package:image/image.dart' as img;
 
 class LeafDiseaseClassificationResult {
   final String label;
@@ -15,5 +15,5 @@ class LeafDiseaseClassificationResult {
 abstract class LeafDiseaseClassifier {
   const LeafDiseaseClassifier();
 
-  Future<LeafDiseaseClassificationResult> classifyDisease(image_lib.Image image);
+  Future<LeafDiseaseClassificationResult> classifyDisease(img.Image image);
 }

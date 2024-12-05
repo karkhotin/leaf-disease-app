@@ -5,7 +5,11 @@ import 'package:leaf_disease_app/src/domain/settings/repository/settings.dart';
 
 final class LeafDiseaseTfLiteClassifierProvider extends LeafDiseaseClassifierProvider {
   static final _configs = {
+    LeafType.apple: _defaultConfig("classification_apple"),
+    LeafType.cherry: _defaultConfig("classification_cherry"),
     LeafType.grape: _defaultConfig("classification_grape"),
+    LeafType.pear: _defaultConfig("classification_pear"),
+    LeafType.walnut: _defaultConfig("classification_walnut"),
   };
 
   static LeafDiseaseClassifierTfLiteConfig _defaultConfig(String modelName) {
@@ -17,8 +21,7 @@ final class LeafDiseaseTfLiteClassifierProvider extends LeafDiseaseClassifierPro
 
   @override
   LeafDiseaseClassifier provideClassifier(LeafType leafType) {
-    final config = _configs[LeafType.grape];
-    // final config = _configs[leafType];
+    final config = _configs[leafType];
     if (config == null) {
       throw AssertionError("Config for $leafType is missing!");
     }

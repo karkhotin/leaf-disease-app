@@ -24,10 +24,13 @@ final class LeafDiseaseDetectionRepositoryImpl extends LeafDiseaseDetectionRepos
       return [];
     }
     final classifier = _leafDiseaseClassifierProvider.provideClassifier(leafType);
-    final classificationFutures = leafs.map((rect) {
-      return _classifyLeafDisease(classifier, leafType, image, rect);
-    });
-    final results = await Future.wait(classificationFutures);
+    final results = <LeafDiseaseDetectionResult>[];
+    for (var rect in leafs) {
+      final result = await _classifyLeafDisease(classifier, leafType, image, rect);
+      if (result != null) {
+        results.add(result);
+      }
+    }
     return results.whereNotNull().toList();
   }
 
