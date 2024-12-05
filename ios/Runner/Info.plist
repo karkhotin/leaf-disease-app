@@ -27,9 +27,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Leaf Dease needs photo library access to recognize deases in "live" mode.</string>
+	<string>Leaf Disease needs photo library access to recognize diseases in "live" mode.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Leaf Dease needs photo library access to recognize deases on stored photos.</string>
+	<string>Leaf Disease needs photo library access to recognize diseases on stored photos.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

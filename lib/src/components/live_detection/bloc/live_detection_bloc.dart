@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:leaf_disease_app/src/domain/dease_detection/leaf_dease_detection_repository.dart';
+import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
 import 'package:leaf_disease_app/src/components/live_detection/bloc/live_detection_event.dart';
 import 'package:leaf_disease_app/src/components/live_detection/bloc/live_detection_state.dart';
 import 'package:leaf_disease_app/src/domain/settings/repository/settings_repository.dart';
 import 'package:pytorch_lite/image_utils_isolate.dart';
 
 class LiveDetectionBloc extends Bloc<LiveDetectionEvent, LiveDetectionState> {
-  final LeafDeaseDetectionRepository leafDeaseDetectionRepository;
+  final LeafDiseaseDetectionRepository leafDiseaseDetectionRepository;
   final SettingsRepository settingsRepository;
 
-  LiveDetectionBloc({required this.leafDeaseDetectionRepository, required this.settingsRepository})
+  LiveDetectionBloc({required this.leafDiseaseDetectionRepository, required this.settingsRepository})
       : super(LiveDetectionState()) {
     on<LiveDetectionFrameCaptured>(_onFrameCaptured);
   }
@@ -27,11 +27,12 @@ class LiveDetectionBloc extends Bloc<LiveDetectionEvent, LiveDetectionState> {
     if (image == null) {
       return;
     }
-    final results = await leafDeaseDetectionRepository.detectDeases(image, settingsRepository.settings.activeLeafType);
+    final results =
+        await leafDiseaseDetectionRepository.detectDiseases(image, settingsRepository.settings.activeLeafType);
     final mappedResults = results
         .map((result) => LiveDetectionRect(
               relativeRect: result.region,
-              label: result.dease,
+              label: result.disease,
             ))
         .toList();
     if (emit.isDone) {

@@ -1,14 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:leaf_disease_app/src/domain/dease_detection/leaf_dease_detection_repository.dart';
+import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
 import 'package:leaf_disease_app/src/components/details_page/bloc/details_state.dart';
 import 'package:image/image.dart' as img;
 import 'package:leaf_disease_app/src/domain/settings/repository/settings_repository.dart';
 
 class DetailsCubit extends Cubit<DetailsState> {
-  final LeafDeaseDetectionRepository leafDeaseDetectionRepository;
+  final LeafDiseaseDetectionRepository leafDiseaseDetectionRepository;
   final SettingsRepository settingsRepository;
 
-  DetailsCubit(super.initialState, {required this.leafDeaseDetectionRepository, required this.settingsRepository}) {
+  DetailsCubit(super.initialState, {required this.leafDiseaseDetectionRepository, required this.settingsRepository}) {
     _warmup();
   }
 
@@ -23,7 +23,7 @@ class DetailsCubit extends Cubit<DetailsState> {
         return;
       }
       final results =
-          await leafDeaseDetectionRepository.detectDeases(image, settingsRepository.settings.activeLeafType);
+          await leafDiseaseDetectionRepository.detectDiseases(image, settingsRepository.settings.activeLeafType);
       if (isClosed) {
         return;
       }

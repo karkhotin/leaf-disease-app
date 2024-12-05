@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:leaf_disease_app/src/domain/dease_detection/leaf_dease_detection_repository.dart';
-import 'package:leaf_disease_app/src/components/details_page/bloc/leaf_dease_state.dart';
+import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
+import 'package:leaf_disease_app/src/components/details_page/bloc/leaf_disease_state.dart';
 import 'package:image/image.dart' as img;
 
-class LeafDeaseCubit extends Cubit<LeafDeaseState> {
-  LeafDeaseCubit(LeafDeaseResult result)
-      : super(LeafDeaseState(
-          deaseName: result.dease,
+class LeafDiseaseCubit extends Cubit<LeafDiseaseState> {
+  LeafDiseaseCubit(LeafDiseaseResult result)
+      : super(LeafDiseaseState(
+          diseaseName: result.disease,
           confidence: result.confidence,
         )) {
     _loadImage(result.regionImage);
@@ -23,8 +23,8 @@ class LeafDeaseCubit extends Cubit<LeafDeaseState> {
     if (isClosed) {
       return;
     }
-    emit(LeafDeaseState(
-      deaseName: state.deaseName,
+    emit(LeafDiseaseState(
+      diseaseName: state.diseaseName,
       confidence: state.confidence,
       imageBytes: command.outputBytes,
     ));

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:leaf_disease_app/src/domain/dease_detection/leaf_dease_detection_repository.dart';
+import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
 import 'package:leaf_disease_app/src/components/details_page/bloc/details_bloc.dart';
 import 'package:leaf_disease_app/src/components/details_page/bloc/details_state.dart';
-import 'package:leaf_disease_app/src/components/details_page/bloc/leaf_dease_cubit.dart';
-import 'package:leaf_disease_app/src/components/details_page/ui/leaf_dease_view.dart';
+import 'package:leaf_disease_app/src/components/details_page/bloc/leaf_disease_cubit.dart';
+import 'package:leaf_disease_app/src/components/details_page/ui/leaf_disease_view.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
 
-  static Route<void> routeWithResults({required List<LeafDeaseResult> results}) {
+  static Route<void> routeWithResults({required List<LeafDiseaseResult> results}) {
     return _routeWithInitialState(DetailsClassifiedState(results));
   }
 
@@ -23,7 +23,7 @@ class DetailsPage extends StatelessWidget {
       builder: (context) => BlocProvider(
         create: (context) => DetailsCubit(
           state,
-          leafDeaseDetectionRepository: context.read(),
+          leafDiseaseDetectionRepository: context.read(),
           settingsRepository: context.read(),
         ),
         child: const DetailsPage(),
@@ -73,8 +73,8 @@ class DetailsPage extends StatelessWidget {
       shrinkExtent: 100,
       children: [
         ...state.results.map((result) => BlocProvider(
-              create: (context) => LeafDeaseCubit(result),
-              child: const LeafDeaseView(),
+              create: (context) => LeafDiseaseCubit(result),
+              child: const LeafDiseaseView(),
             )),
       ],
     );

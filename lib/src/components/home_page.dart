@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildCamera(BuildContext context) {
     return BlocProvider(
       create: (context) => LiveDetectionBloc(
-        leafDeaseDetectionRepository: context.read(),
+        leafDiseaseDetectionRepository: context.read(),
         settingsRepository: context.read(),
       ),
       child: LiveDetectionView(),

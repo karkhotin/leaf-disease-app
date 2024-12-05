@@ -1,31 +1,31 @@
 import 'package:image/image.dart' as image_lib;
-import 'package:leaf_disease_app/src/domain/dease_classification/classifier/leaf_dease_classifier.dart';
+import 'package:leaf_disease_app/src/domain/disease_classification/classifier/leaf_disease_classifier.dart';
 import 'package:pytorch_lite/pytorch_lite.dart';
 import 'package:image/image.dart' as img;
 
-final class LeafDeaseClassifierTorchConfig {
+final class LeafDiseaseClassifierTorchConfig {
   final String modelPath;
   final String labelPath;
 
-  const LeafDeaseClassifierTorchConfig({required this.modelPath, required this.labelPath});
+  const LeafDiseaseClassifierTorchConfig({required this.modelPath, required this.labelPath});
 }
 
-final class LeafDeaseTorchClassifier extends LeafDeaseClassifier {
-  final LeafDeaseClassifierTorchConfig config;
+final class LeafDiseaseTorchClassifier extends LeafDiseaseClassifier {
+  final LeafDiseaseClassifierTorchConfig config;
 
   late final Future<ClassificationModel> _model = _loadModel();
 
-  LeafDeaseTorchClassifier(this.config);
+  LeafDiseaseTorchClassifier(this.config);
 
   @override
-  Future<List<LeafDeaseClassificationResult>> classifyDease(image_lib.Image image) async {
+  Future<List<LeafDiseaseClassificationResult>> classifyDisease(image_lib.Image image) async {
     final model = await _model;
 
     final imageBytes = img.encodeJpg(image);
     String imagePrediction = await model.getImagePrediction(imageBytes);
 
     return [
-      LeafDeaseClassificationResult(label: imagePrediction, confidence: 1.0),
+      LeafDiseaseClassificationResult(label: imagePrediction, confidence: 1.0),
     ];
   }
 

@@ -1,4 +1,4 @@
-import 'package:leaf_disease_app/src/domain/dease_detection/leaf_dease_detection_repository.dart';
+import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
 
 sealed class DetailsState {
   const DetailsState();
@@ -11,7 +11,7 @@ final class DetailsClassifyingState extends DetailsState {
 }
 
 final class DetailsClassifiedState extends DetailsState {
-  final List<LeafDeaseResult> results;
+  final List<LeafDiseaseResult> results;
 
   const DetailsClassifiedState(this.results);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:leaf_disease_app/src/domain/dease_classification/classifier_factory/leaf_dease_torch_classifier_provider.dart';
-import 'package:leaf_disease_app/src/domain/dease_detection/leaf_dease_detection_repository_impl.dart';
+import 'package:leaf_disease_app/src/domain/disease_classification/classifier_factory/leaf_disease_torch_classifier_provider.dart';
+import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository_impl.dart';
 import 'package:leaf_disease_app/src/domain/settings/data_provider/settings_shared_preferences_data_provider.dart';
 import 'package:leaf_disease_app/src/domain/settings/repository/settings_repository_impl.dart';
 import 'package:leaf_disease_app/src/domain/leaf_detection/leaf_torch_detector.dart';
@@ -17,11 +17,11 @@ void main() async {
   await settingsRepository.load();
 
   final leafDetector = LeafTorchDetector();
-  final leafDeaseClassifierProvider = LeafDeaseTorchClassifierProvider();
-  final leafDeaseDetectionRepository = LeafDeaseDetectionRepositoryImpl(
+  final leafDiseaseClassifierProvider = LeafDiseaseTorchClassifierProvider();
+  final leafDiseaseDetectionRepository = LeafDiseaseDetectionRepositoryImpl(
     leafDetector: leafDetector,
-    leafDeaseClassifierProvider: leafDeaseClassifierProvider,
+    leafDiseaseClassifierProvider: leafDiseaseClassifierProvider,
   );
 
-  runApp(App(settingsRepository: settingsRepository, leafDeaseDetectionRepository: leafDeaseDetectionRepository));
+  runApp(App(settingsRepository: settingsRepository, leafDiseaseDetectionRepository: leafDiseaseDetectionRepository));
 }

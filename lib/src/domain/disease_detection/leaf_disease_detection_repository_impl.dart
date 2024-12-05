@@ -1,28 +1,28 @@
 import 'dart:ui';
 import 'package:image/image.dart' as img;
-import 'package:leaf_disease_app/src/domain/dease_classification/classifier/leaf_dease_classifier.dart';
-import 'package:leaf_disease_app/src/domain/dease_classification/classifier_factory/leaf_dease_classifier_provider.dart';
-import 'package:leaf_disease_app/src/domain/dease_detection/leaf_dease_detection_repository.dart';
+import 'package:leaf_disease_app/src/domain/disease_classification/classifier/leaf_disease_classifier.dart';
+import 'package:leaf_disease_app/src/domain/disease_classification/classifier_factory/leaf_disease_classifier_provider.dart';
+import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
 import 'package:leaf_disease_app/src/domain/leaf_detection/leaf_detector.dart';
 import 'package:collection/collection.dart';
 import 'package:leaf_disease_app/src/domain/settings/repository/settings.dart';
 
-final class LeafDeaseDetectionRepositoryImpl extends LeafDeaseDetectionRepository {
+final class LeafDiseaseDetectionRepositoryImpl extends LeafDiseaseDetectionRepository {
   final LeafDetector _leafDetector;
-  final LeafDeaseClassifierProvider _leafDeaseClassifierProvider;
+  final LeafDiseaseClassifierProvider _leafDiseaseClassifierProvider;
 
-  LeafDeaseDetectionRepositoryImpl(
-      {required LeafDetector leafDetector, required LeafDeaseClassifierProvider leafDeaseClassifierProvider})
+  LeafDiseaseDetectionRepositoryImpl(
+      {required LeafDetector leafDetector, required LeafDiseaseClassifierProvider leafDiseaseClassifierProvider})
       : _leafDetector = leafDetector,
-        _leafDeaseClassifierProvider = leafDeaseClassifierProvider;
+        _leafDiseaseClassifierProvider = leafDiseaseClassifierProvider;
 
   @override
-  Future<List<LeafDeaseResult>> detectDeases(img.Image image, LeafType leafType) async {
+  Future<List<LeafDiseaseResult>> detectDiseases(img.Image image, LeafType leafType) async {
     final leafs = await _leafDetector.detectLeafsFromImage(image);
     if (leafs.isEmpty) {
       return [];
     }
-    final classifier = _leafDeaseClassifierProvider.provideClassifier(leafType);
+    final classifier = _leafDiseaseClassifierProvider.provideClassifier(leafType);
     final classificationFutures = leafs.map((rect) {
       return _classifyLeaf(classifier, image, rect);
     });
@@ -30,16 +30,16 @@ final class LeafDeaseDetectionRepositoryImpl extends LeafDeaseDetectionRepositor
     return results.whereNotNull().toList();
   }
 
-  Future<LeafDeaseResult?> _classifyLeaf(LeafDeaseClassifier classifier, img.Image image, Rect relativeRect) async {
+  Future<LeafDiseaseResult?> _classifyLeaf(LeafDiseaseClassifier classifier, img.Image image, Rect relativeRect) async {
     final croppedImage = await _cropImage(image, relativeRect);
-    final deases = await classifier.classifyDease(croppedImage);
-    if (deases.isEmpty) {
+    final diseases = await classifier.classifyDisease(croppedImage);
+    if (diseases.isEmpty) {
       return null;
     }
-    final dease = deases.first;
-    return LeafDeaseResult(
-      dease: dease.label,
-      confidence: dease.confidence,
+    final disease = diseases.first;
+    return LeafDiseaseResult(
+      disease: disease.label,
+      confidence: disease.confidence,
       region: relativeRect,
       regionImage: croppedImage,
     );
