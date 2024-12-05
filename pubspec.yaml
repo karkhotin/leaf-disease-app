@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_localizations:
     sdk: flutter
+  google_fonts: ^6.2.1
   image: ^4.3.0
   image_picker: ^1.1.2
   path: ^1.9.0
@@ -26,6 +27,8 @@ dependencies:
   pytorch_lite: ^4.3.0
   rxdart: ^0.28.0
   shared_preferences: ^2.3.3
+  url_launcher: ^6.3.1
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:

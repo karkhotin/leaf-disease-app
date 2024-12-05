@@ -7,6 +7,9 @@ import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/b
 import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/bloc/leaf_disease_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:leaf_disease_app/src/utils/localization_utils.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final Uri _googleUrl = Uri.parse('https://www.google.com/search');
 
 class LeafDiseaseView extends StatelessWidget {
   const LeafDiseaseView({super.key});
@@ -80,6 +83,7 @@ class LeafDiseaseView extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 8),
                 Text(
                   state.label,
                   style: TextStyle(
@@ -105,12 +109,30 @@ class LeafDiseaseView extends StatelessWidget {
   }
 
   Widget _buildDetails(BuildContext context) {
-    return Center(
-      child: ElevatedButton.icon(
-        onPressed: () {},
-        icon: const Icon(Icons.info_outlined),
-        label: Text("Get More Info"),
-      ),
-    );
+    return BlocBuilder<LeafDiseaseCubit, LeafDiseaseState>(builder: (context, state) {
+      if (state.healthy) {
+        return Container();
+      }
+      return Center(
+        child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.redAccent.shade200,
+          ),
+          onPressed: () async {
+            final url = _googleUrl.replace(queryParameters: {
+              "q": ["${AppLocalizations.of(context)!.leafType(state.leafType)} ${state.label}"]
+            });
+            await launchUrl(url);
+          },
+          icon: const Icon(Icons.info_outlined),
+          label: Text(
+            "What is this?",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    });
   }
 }
