@@ -22,7 +22,6 @@ class LiveDetectionState {
   final bool processingFrame;
   final bool cameraVisible;
   final bool cameraPreviewPaused;
-  // final List<LeafDiseaseDetectionResult>? lastDetectionResult;
 
   final FrameImageProvider? _lastFrameImageProvider;
 
@@ -38,7 +37,6 @@ class LiveDetectionState {
     this.processingFrame = false,
     this.cameraVisible = false,
     this.cameraPreviewPaused = false,
-    // this.lastDetectionResult,
     FrameImageProvider? lastFrameImageProvider,
   }) : _lastFrameImageProvider = lastFrameImageProvider;
 
@@ -48,7 +46,6 @@ class LiveDetectionState {
     bool? processingFrame,
     bool? cameraVisible,
     bool? cameraPreviewPaused,
-    // List<LeafDiseaseDetectionResult>? lastDetectionResult,
     FrameImageProvider? lastFrameImageProvider,
   }) {
     return LiveDetectionState(
@@ -58,7 +55,6 @@ class LiveDetectionState {
       processingFrame: processingFrame ?? this.processingFrame,
       cameraVisible: cameraVisible ?? this.cameraVisible,
       cameraPreviewPaused: cameraPreviewPaused ?? this.cameraPreviewPaused,
-      // lastDetectionResult: lastDetectionResult ?? this.lastDetectionResult,
       lastFrameImageProvider: lastFrameImageProvider ?? _lastFrameImageProvider,
     );
   }

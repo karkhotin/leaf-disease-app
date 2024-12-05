@@ -43,9 +43,13 @@ class LiveDetectionBloc extends Bloc<LiveDetectionEvent, LiveDetectionState> {
     }
 
     if (state.processingFrame) {
+      emit(state.copyWith(lastFrameImageProvider: () => _prepareFrameImage(frame)));
       return;
     }
-    emit(state.copyWith(processingFrame: true));
+    emit(state.copyWith(
+      processingFrame: true,
+      lastFrameImageProvider: () => _prepareFrameImage(frame),
+    ));
 
     final image = await _prepareFrameImage(frame);
     if (image == null) {

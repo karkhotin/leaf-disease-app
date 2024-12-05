@@ -207,7 +207,7 @@ class _LiveDetectionCameraViewState extends State<_LiveDetectionCameraView> with
   Widget _buildCaptureButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
-        final frame = await context.read<LiveDetectionBloc>().state.lastFrameImage;
+        final frame = await this.context.read<LiveDetectionBloc>().state.lastFrameImage;
         if (frame == null || !mounted) {
           return;
         }
