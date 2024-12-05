@@ -2,11 +2,11 @@ import 'package:leaf_disease_app/src/domain/disease_classification/classifier/le
 import 'package:leaf_disease_app/src/domain/disease_classification/classifier_factory/leaf_disease_classifier_provider.dart';
 import 'package:leaf_disease_app/src/domain/settings/repository/settings.dart';
 
-final class LeafDiseaseCachedClassifierProvider extends LeafDiseaseClassifierProvider {
+final class LeafDiseaseReusableClassifierProvider extends LeafDiseaseClassifierProvider {
   final LeafDiseaseClassifierProvider _baseProvider;
   final Map<LeafType, LeafDiseaseClassifier> _cache = {};
 
-  LeafDiseaseCachedClassifierProvider(LeafDiseaseClassifierProvider baseProvider) : _baseProvider = baseProvider;
+  LeafDiseaseReusableClassifierProvider(LeafDiseaseClassifierProvider baseProvider) : _baseProvider = baseProvider;
 
   @override
   LeafDiseaseClassifier provideClassifier(LeafType leafType) {

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/bloc/leaf_disease_cubit.dart';
 import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/bloc/leaf_disease_state.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:leaf_disease_app/src/utils/localization_utils.dart';
 
 class LeafDiseaseView extends StatelessWidget {
   const LeafDiseaseView({super.key});
@@ -30,7 +32,10 @@ class LeafDiseaseView extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 0.8,
       child: BlocBuilder<LeafDiseaseCubit, LeafDiseaseState>(builder: (context, state) {
-        return state.imageBytes != null ? _buildImageWithBackground(state.imageBytes!) : Container();
+        return AnimatedSwitcher(
+          duration: Durations.medium1,
+          child: state.imageBytes != null ? _buildImageWithBackground(state.imageBytes!) : Container(),
+        );
       }),
     );
   }
@@ -59,6 +64,7 @@ class LeafDiseaseView extends StatelessWidget {
 
   Widget _buildDescription(BuildContext context) {
     return BlocBuilder<LeafDiseaseCubit, LeafDiseaseState>(builder: (context, state) {
+      final labelColor = state.healthy ? Colors.green.shade800 : Colors.amber.shade700;
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -68,18 +74,18 @@ class LeafDiseaseView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Grape",
+                  AppLocalizations.of(context)!.leafType(state.leafType),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  state.diseaseName,
+                  state.label,
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.green.shade800,
+                    color: labelColor,
                   ),
                 ),
               ],
@@ -90,7 +96,7 @@ class LeafDiseaseView extends StatelessWidget {
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: Colors.green.shade800,
+              color: labelColor,
             ),
           ),
         ],

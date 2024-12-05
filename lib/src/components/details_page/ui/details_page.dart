@@ -9,7 +9,7 @@ import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/u
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
 
-  static Route<void> routeWithResults({required List<LeafDiseaseResult> results}) {
+  static Route<void> routeWithResults({required List<LeafDiseaseDetectionResult> results}) {
     return _routeWithInitialState(DetailsClassifiedState(results));
   }
 

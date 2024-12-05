@@ -12,11 +12,12 @@
   "settingsThemeDark": "Dark",
   "settingsLiveDetection": "Real-time leaf disease detection",
   "settingsLeafType": "Active Leaf Type",
-  "settingsLeafType_apple": "Apple",
-  "settingsLeafType_apricot": "Apricot",
-  "settingsLeafType_cherry": "Cherry",
-  "settingsLeafType_grape": "Grape",
-  "settingsLeafType_peach": "Peach",
-  "settingsLeafType_pear": "Pear",
-  "settingsLeafType_walnut": "Walnut"
+
+  "leafType_apple": "Apple",
+  "leafType_apricot": "Apricot",
+  "leafType_cherry": "Cherry",
+  "leafType_grape": "Grape",
+  "leafType_peach": "Peach",
+  "leafType_pear": "Pear",
+  "leafType_walnut": "Walnut"
 }

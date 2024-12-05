@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:leaf_disease_app/src/domain/leaf_detection/leaf_detector.dart';
+import 'package:leaf_disease_app/src/utils/image_utils.dart';
 import 'package:pytorch_lite/pytorch_lite.dart';
 import 'package:image/image.dart' as img;
 
@@ -9,7 +10,7 @@ class LeafTorchDetector extends LeafDetector {
   @override
   Future<List<Rect>> detectLeafsFromImage(img.Image image) async {
     final model = await _model;
-    final imageBytes = img.encodeJpg(image);
+    final imageBytes = await ImageUtils.encodeJpgImage(image);
     List<ResultObjectDetection> predictions =
         await model.getImagePrediction(imageBytes, minimumScore: 0.5, iOUThreshold: 0.3);
 

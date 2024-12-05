@@ -11,35 +11,40 @@ final class LeafDiseaseDetectionRepositoryImpl extends LeafDiseaseDetectionRepos
   final LeafDetector _leafDetector;
   final LeafDiseaseClassifierProvider _leafDiseaseClassifierProvider;
 
-  LeafDiseaseDetectionRepositoryImpl(
-      {required LeafDetector leafDetector, required LeafDiseaseClassifierProvider leafDiseaseClassifierProvider})
-      : _leafDetector = leafDetector,
+  LeafDiseaseDetectionRepositoryImpl({
+    required LeafDetector leafDetector,
+    required LeafDiseaseClassifierProvider leafDiseaseClassifierProvider,
+  })  : _leafDetector = leafDetector,
         _leafDiseaseClassifierProvider = leafDiseaseClassifierProvider;
 
   @override
-  Future<List<LeafDiseaseResult>> detectDiseases(img.Image image, LeafType leafType) async {
+  Future<List<LeafDiseaseDetectionResult>> detectDiseases(img.Image image, LeafType leafType) async {
     final leafs = await _leafDetector.detectLeafsFromImage(image);
     if (leafs.isEmpty) {
       return [];
     }
     final classifier = _leafDiseaseClassifierProvider.provideClassifier(leafType);
     final classificationFutures = leafs.map((rect) {
-      return _classifyLeaf(classifier, image, rect);
+      return _classifyLeafDisease(classifier, leafType, image, rect);
     });
     final results = await Future.wait(classificationFutures);
     return results.whereNotNull().toList();
   }
 
-  Future<LeafDiseaseResult?> _classifyLeaf(LeafDiseaseClassifier classifier, img.Image image, Rect relativeRect) async {
+  Future<LeafDiseaseDetectionResult?> _classifyLeafDisease(
+    LeafDiseaseClassifier classifier,
+    LeafType leafType,
+    img.Image image,
+    Rect relativeRect,
+  ) async {
     final croppedImage = await _cropImage(image, relativeRect);
-    final diseases = await classifier.classifyDisease(croppedImage);
-    if (diseases.isEmpty) {
-      return null;
-    }
-    final disease = diseases.first;
-    return LeafDiseaseResult(
-      disease: disease.label,
-      confidence: disease.confidence,
+    final classificationResult = await classifier.classifyDisease(croppedImage);
+
+    return LeafDiseaseDetectionResult(
+      label: classificationResult.label,
+      healthy: classificationResult.healthy,
+      confidence: classificationResult.confidence,
+      leafType: leafType,
       region: relativeRect,
       regionImage: croppedImage,
     );

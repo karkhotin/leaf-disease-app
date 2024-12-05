@@ -2,31 +2,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/bloc/leaf_disease_state.dart';
 import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
 import 'package:image/image.dart' as img;
+import 'package:leaf_disease_app/src/utils/image_utils.dart';
 
 class LeafDiseaseCubit extends Cubit<LeafDiseaseState> {
-  LeafDiseaseCubit(LeafDiseaseResult result)
+  LeafDiseaseCubit(LeafDiseaseDetectionResult result)
       : super(LeafDiseaseState(
-          diseaseName: result.disease,
+          leafType: result.leafType,
+          label: result.label,
+          healthy: result.healthy,
           confidence: result.confidence,
         )) {
     _loadImage(result.regionImage);
   }
 
   void _loadImage(img.Image image) async {
-    final command = img.Command()
-      ..image(image)
-      ..encodeJpg();
-    await command.executeThread();
-    if (command.outputBytes == null) {
-      return;
-    }
+    final imageBytes = await ImageUtils.encodeJpgImage(image);
     if (isClosed) {
       return;
     }
     emit(LeafDiseaseState(
-      diseaseName: state.diseaseName,
+      leafType: state.leafType,
+      label: state.label,
+      healthy: state.healthy,
       confidence: state.confidence,
-      imageBytes: command.outputBytes,
+      imageBytes: imageBytes,
     ));
   }
 }

@@ -32,7 +32,7 @@ class LiveDetectionBloc extends Bloc<LiveDetectionEvent, LiveDetectionState> {
     final mappedResults = results
         .map((result) => LiveDetectionRect(
               relativeRect: result.region,
-              label: result.disease,
+              label: result.label,
             ))
         .toList();
     if (emit.isDone) {

@@ -11,7 +11,7 @@ final class DetailsClassifyingState extends DetailsState {
 }
 
 final class DetailsClassifiedState extends DetailsState {
-  final List<LeafDiseaseResult> results;
+  final List<LeafDiseaseDetectionResult> results;
 
   const DetailsClassifiedState(this.results);
 }

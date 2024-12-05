@@ -5,6 +5,7 @@ import 'package:leaf_disease_app/src/components/settings_page/bloc/settings_bloc
 import 'package:leaf_disease_app/src/components/settings_page/bloc/settings_event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:leaf_disease_app/src/components/settings_page/bloc/settings_state.dart';
+import 'package:leaf_disease_app/src/utils/localization_utils.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -65,9 +66,7 @@ class SettingsView extends StatelessWidget {
           children: [
             Text(AppLocalizations.of(context)!.settingsTheme),
             DropdownButton<AppTheme>(
-              // Read the selected themeMode from the controller
               value: state.appSettings?.theme ?? AppTheme.system,
-              // Call the updateThemeMode method any time the user selects a theme.
               onChanged: (theme) => theme != null ? context.read<SettingsBloc>().add(SettingsThemeChanged(theme)) : (),
               items: [
                 DropdownMenuItem(
@@ -118,44 +117,28 @@ class SettingsView extends StatelessWidget {
           children: [
             Text(AppLocalizations.of(context)!.settingsLeafType),
             DropdownButton<LeafType>(
-              // Read the selected themeMode from the controller
               value: state.appSettings?.activeLeafType ?? LeafType.apple,
-              // Call the updateThemeMode method any time the user selects a theme.
               onChanged: (type) => type != null ? context.read<SettingsBloc>().add(SettingsLeafTypeChanged(type)) : (),
               items: [
-                DropdownMenuItem(
-                  value: LeafType.apple,
-                  child: Text(AppLocalizations.of(context)!.settingsLeafType_apple),
-                ),
-                DropdownMenuItem(
-                  value: LeafType.apricot,
-                  child: Text(AppLocalizations.of(context)!.settingsLeafType_apricot),
-                ),
-                DropdownMenuItem(
-                  value: LeafType.cherry,
-                  child: Text(AppLocalizations.of(context)!.settingsLeafType_cherry),
-                ),
-                DropdownMenuItem(
-                  value: LeafType.grape,
-                  child: Text(AppLocalizations.of(context)!.settingsLeafType_grape),
-                ),
-                DropdownMenuItem(
-                  value: LeafType.peach,
-                  child: Text(AppLocalizations.of(context)!.settingsLeafType_peach),
-                ),
-                DropdownMenuItem(
-                  value: LeafType.pear,
-                  child: Text(AppLocalizations.of(context)!.settingsLeafType_pear),
-                ),
-                DropdownMenuItem(
-                  value: LeafType.walnut,
-                  child: Text(AppLocalizations.of(context)!.settingsLeafType_walnut),
-                ),
+                _leafTypeDropdownItem(context, LeafType.apple),
+                _leafTypeDropdownItem(context, LeafType.apricot),
+                _leafTypeDropdownItem(context, LeafType.cherry),
+                _leafTypeDropdownItem(context, LeafType.grape),
+                _leafTypeDropdownItem(context, LeafType.peach),
+                _leafTypeDropdownItem(context, LeafType.pear),
+                _leafTypeDropdownItem(context, LeafType.walnut),
               ],
             )
           ],
         );
       },
+    );
+  }
+
+  DropdownMenuItem<LeafType> _leafTypeDropdownItem(BuildContext context, LeafType leafType) {
+    return DropdownMenuItem(
+      value: leafType,
+      child: Text(AppLocalizations.of(context)!.leafType(leafType)),
     );
   }
 }

@@ -1,5 +1,5 @@
-import 'package:image/image.dart' as image_lib;
 import 'package:leaf_disease_app/src/domain/disease_classification/classifier/leaf_disease_classifier.dart';
+import 'package:leaf_disease_app/src/utils/image_utils.dart';
 import 'package:pytorch_lite/pytorch_lite.dart';
 import 'package:image/image.dart' as img;
 
@@ -18,15 +18,19 @@ final class LeafDiseaseTorchClassifier extends LeafDiseaseClassifier {
   LeafDiseaseTorchClassifier(this.config);
 
   @override
-  Future<List<LeafDiseaseClassificationResult>> classifyDisease(image_lib.Image image) async {
+  Future<LeafDiseaseClassificationResult> classifyDisease(img.Image image) async {
     final model = await _model;
 
-    final imageBytes = img.encodeJpg(image);
-    String imagePrediction = await model.getImagePrediction(imageBytes);
+    final imageBytes = await ImageUtils.encodeJpgImage(image);
+    final imagePredictions = await model.getImagePredictionList(imageBytes);
+    final maxConfidenceIndex = model.softMax(imagePredictions);
+    final label = model.labels[maxConfidenceIndex];
 
-    return [
-      LeafDiseaseClassificationResult(label: imagePrediction, confidence: 1.0),
-    ];
+    return LeafDiseaseClassificationResult(
+      label: label,
+      healthy: label.toLowerCase() == healthyLabel,
+      confidence: imagePredictions[maxConfidenceIndex],
+    );
   }
 
   // Private
@@ -41,4 +45,6 @@ final class LeafDiseaseTorchClassifier extends LeafDiseaseClassifier {
       ensureMatchingNumberOfClasses: false,
     );
   }
+
+  static const healthyLabel = "healthy";
 }
