@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leaf_disease_app/src/domain/leaf_detection/leaf_detector_impl.dart';
 import 'package:image/image.dart' as image_lib;
-import 'package:leaf_disease_app/src/ui/detection_view.dart';
 import 'package:leaf_disease_app/src/ui/detection_view_pytorch.dart';
 
 class HomePage extends StatelessWidget {
@@ -40,8 +39,6 @@ class _TestStatfulWidgetState extends State<TestStatfulWidget> {
   @override
   Widget build(BuildContext context) {
     return DetectionPytorchView();
-
-    // return DetectionView();
 
     // return Column(
     //   children: [
