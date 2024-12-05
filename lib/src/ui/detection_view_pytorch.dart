@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:leaf_disease_app/src/domain/leaf_detection/leaf_detector_impl.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pytorch_lite/pytorch_lite.dart';
@@ -16,10 +17,10 @@ class DetectionPytorchView extends StatefulWidget {
 }
 
 class _DetectionPytorchViewState extends State<DetectionPytorchView> {
+  final detector = LeafDetectorImpl();
   final imagePicker = ImagePicker();
   String? imagePath;
   List<Rect> _rects = [];
-  Widget? _imageWithBoxes;
 
   @override
   void initState() {
@@ -35,77 +36,67 @@ class _DetectionPytorchViewState extends State<DetectionPytorchView> {
             final result = await imagePicker.pickImage(
               source: ImageSource.gallery,
             );
-
             imagePath = result?.path;
-            setState(() {});
             _processImage();
           },
           child: Text("Push me!"),
         ),
-        if (_imageWithBoxes != null) Expanded(child: _imageWithBoxes!),
-        // Stack(
-        //   fit: StackFit.loose,
-        //   alignment: AlignmentDirectional.center,
-        //   children: [
-        //     if (imagePath != null) Image.file(File(imagePath!)),
-        //     if (imagePath != null)
-        //       Positioned.fill(
-        //         child: CustomPaint(
-        //           // size: Size(350, 350),
-        //           painter: _BoundingBoxesPainter(rects: _rects),
-        //         ),
-        //       ),
-        //   ],
-        // )
+        Flexible(
+          fit: FlexFit.loose,
+          child: _buildImage(),
+        ),
       ],
     );
   }
 
   Future<void> _processImage() async {
     if (imagePath == null) {
+      setState(() {});
       return;
     }
 
-    ModelObjectDetection objectModel = await PytorchLite.loadObjectDetectionModel(
-        "assets/models/detection/best.torchscript", 1, 416, 416,
-        labelPath: "assets/models/detection/best_labels.txt",
-        objectDetectionModelType: ObjectDetectionModelType.yolov8);
+    final rects = await detector.detectLeafs(imagePath!);
+    log(rects.toString());
 
-    final image = File(imagePath!);
-    List<ResultObjectDetection> objDetect =
-        await objectModel.getImagePrediction(await image.readAsBytes(), minimumScore: 0.5, iOUThreshold: 0.3);
-
-    _imageWithBoxes = objectModel.renderBoxesOnImage(image, objDetect);
-
-    log(objDetect.toString());
-
+    _rects = rects;
     setState(() {});
   }
-}
 
-class _BoundingBoxesPainter extends CustomPainter {
-  final List<Rect> rects;
-
-  _BoundingBoxesPainter({super.repaint, required this.rects});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    // canvas.drawRect(Rect., paint)
-    for (var rect in rects) {
-      // final transformedRect = Rect.fromLTWH(
-      //     rect.left * size.width, rect.top * size.height, rect.width * size.width, rect.height * size.height);
-      canvas.drawRect(
-        rect,
-        Paint()
-          ..strokeWidth = 5
-          ..style = PaintingStyle.stroke
-          ..color = Color(0xFF0099FF),
-      );
+  Widget _buildImage() {
+    if (imagePath == null) {
+      return Container();
     }
+    return Stack(
+      children: [
+        Image.file(
+          File(imagePath!),
+        ),
+        Positioned.fill(
+          child: _buildRects(),
+        ),
+      ],
+    );
   }
 
-  @override
-  bool shouldRepaint(_BoundingBoxesPainter oldDelegate) {
-    return rects == oldDelegate.rects;
+  Widget _buildRects() {
+    return LayoutBuilder(builder: (context, constraints) {
+      double factorX = constraints.maxWidth;
+      double factorY = constraints.maxHeight;
+      return Stack(
+          children: _rects.map((rect) {
+        return Positioned(
+          left: rect.left * factorX,
+          top: rect.top * factorY,
+          child: Container(
+            width: rect.width.toDouble() * factorX,
+            height: rect.height.toDouble() * factorY,
+            decoration: BoxDecoration(
+                border: Border.all(color: Color(0xFF0099FF), width: 3),
+                borderRadius: const BorderRadius.all(Radius.circular(2))),
+            child: Container(),
+          ),
+        );
+      }).toList());
+    });
   }
 }

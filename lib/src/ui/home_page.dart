@@ -77,23 +77,23 @@ class _TestStatfulWidgetState extends State<TestStatfulWidget> {
   }
 
   Future<void> _processImage() async {
-    if (imagePath == null) {
-      return;
-    }
+    // if (imagePath == null) {
+    //   return;
+    // }
 
-    // Read image bytes from file
-    final imageData = File(imagePath!).readAsBytesSync();
+    // // Read image bytes from file
+    // final imageData = File(imagePath!).readAsBytesSync();
 
-    // Decode image using package:image/image.dart (https://pub.dev/image)
-    image = image_lib.decodeImage(imageData);
+    // // Decode image using package:image/image.dart (https://pub.dev/image)
+    // image = image_lib.decodeImage(imageData);
 
-    final rects = await detector.detectLeafs(image!);
-    log(rects.toString());
+    // final rects = await detector.detectLeafs(image!);
+    // log(rects.toString());
 
-    _rects = rects;
-    setState(() {});
-    // classification = await imageClassificationHelper?.inferenceImage(image!);
+    // _rects = rects;
     // setState(() {});
+    // // classification = await imageClassificationHelper?.inferenceImage(image!);
+    // // setState(() {});
   }
 }
 
