@@ -2,19 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/bloc/leaf_disease_cubit.dart';
 import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
-import 'package:leaf_disease_app/src/components/details_page/bloc/details_bloc.dart';
+import 'package:leaf_disease_app/src/components/details_page/bloc/details_cubit.dart';
 import 'package:leaf_disease_app/src/components/details_page/bloc/details_state.dart';
 import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/ui/leaf_disease_view.dart';
+import 'package:image/image.dart' as img;
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
 
-  static Route<void> routeWithResults({required List<LeafDiseaseDetectionResult> results}) {
+  static Route<void> routeWithResults(List<LeafDiseaseDetectionResult> results) {
     return _routeWithInitialState(DetailsClassifiedState(results));
   }
 
-  static Route<void> routeWithImagePath({required String imagePath}) {
-    return _routeWithInitialState(DetailsClassifyingState(imagePath: imagePath));
+  static Route<void> routeWithImage(img.Image image) {
+    return _routeWithInitialState(DetailsClassifyingImageState(image));
+  }
+
+  static Route<void> routeWithImagePath(String imagePath) {
+    return _routeWithInitialState(DetailsClassifyingImagePathState(imagePath));
   }
 
   static Route<void> _routeWithInitialState(DetailsState state) {
@@ -25,7 +30,7 @@ class DetailsPage extends StatelessWidget {
           state,
           leafDiseaseDetectionRepository: context.read(),
           settingsRepository: context.read(),
-        ),
+        )..warmup(),
         child: const DetailsPage(),
       ),
     );
@@ -40,9 +45,13 @@ class DetailsPage extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<DetailsCubit, DetailsState>(builder: (context, state) {
           switch (state) {
-            case DetailsClassifyingState _:
+            case DetailsClassifyingImagePathState _:
+            case DetailsClassifyingImageState _:
               return _buildLoadingPage(context);
             case DetailsClassifiedState state:
+              if (state.results.isEmpty) {
+                return _buildEmptyResultsPage(context);
+              }
               return _buildClassifiedPage(context, state);
             case DetailsClassificationFailedState _:
               return _buildErrorPage(context);
@@ -58,9 +67,21 @@ class DetailsPage extends StatelessWidget {
     );
   }
 
+  Widget _buildEmptyResultsPage(BuildContext context) {
+    return Center(
+      child: Text(
+        "No leafs found 🌱",
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+
   Widget _buildErrorPage(BuildContext context) {
     return Center(
-      child: Text("Failed to classify leafs 💩"),
+      child: Text(
+        "Failed to classify leafs 💩",
+        style: TextStyle(fontSize: 20),
+      ),
     );
   }
 
@@ -73,20 +94,5 @@ class DetailsPage extends StatelessWidget {
             )),
       ],
     );
-
-    // return CarouselView(
-    //   scrollDirection: Axis.horizontal,
-    //   padding: const EdgeInsets.all(16),
-    //   itemSnapping: true,
-    //   itemExtent: double.infinity,
-    //   shrinkExtent: 100,
-
-    //   children: [
-    //     ...state.results.map((result) => BlocProvider(
-    //           create: (context) => LeafDiseaseCubit(result),
-    //           child: const LeafDiseaseView(),
-    //         )),
-    //   ],
-    // );
   }
 }
