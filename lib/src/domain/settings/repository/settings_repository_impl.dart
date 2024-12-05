@@ -18,13 +18,15 @@ final class SettingsRepositoryImpl extends SettingsRepository {
   Future<void> load() async {
     final values = await Future.wait([
       _dataProvider.getInt(_SettingsKeys.appThemeKey),
+      _dataProvider.getInt(_SettingsKeys.appLanguageKey),
       _dataProvider.getBool(_SettingsKeys.liveDetectionEnabledKey),
       _dataProvider.getInt(_SettingsKeys.activeLeafTypeKey),
     ]);
     final settings = AppSettings(
       theme: values[0] is int ? AppTheme.values[values[0] as int] : null,
-      isLiveDetectionEnabled: values[1] is bool ? values[1] as bool : null,
-      activeLeafType: values[2] is int ? LeafType.values[values[2] as int] : null,
+      language: values[1] is int ? AppLanguage.values[values[1] as int] : null,
+      isLiveDetectionEnabled: values[2] is bool ? values[2] as bool : null,
+      activeLeafType: values[3] is int ? LeafType.values[values[3] as int] : null,
     );
     _settingsStreamController.add(settings);
   }
