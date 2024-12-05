@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/bloc/leaf_disease_cubit.dart';
 import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
 import 'package:leaf_disease_app/src/components/details_page/bloc/details_bloc.dart';
 import 'package:leaf_disease_app/src/components/details_page/bloc/details_state.dart';
-import 'package:leaf_disease_app/src/components/details_page/bloc/leaf_disease_cubit.dart';
-import 'package:leaf_disease_app/src/components/details_page/ui/leaf_disease_view.dart';
+import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/ui/leaf_disease_view.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
@@ -65,12 +65,7 @@ class DetailsPage extends StatelessWidget {
   }
 
   Widget _buildClassifiedPage(BuildContext context, DetailsClassifiedState state) {
-    return CarouselView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.all(16),
-      itemSnapping: true,
-      itemExtent: double.infinity,
-      shrinkExtent: 100,
+    return PageView(
       children: [
         ...state.results.map((result) => BlocProvider(
               create: (context) => LeafDiseaseCubit(result),
@@ -78,5 +73,20 @@ class DetailsPage extends StatelessWidget {
             )),
       ],
     );
+
+    // return CarouselView(
+    //   scrollDirection: Axis.horizontal,
+    //   padding: const EdgeInsets.all(16),
+    //   itemSnapping: true,
+    //   itemExtent: double.infinity,
+    //   shrinkExtent: 100,
+
+    //   children: [
+    //     ...state.results.map((result) => BlocProvider(
+    //           create: (context) => LeafDiseaseCubit(result),
+    //           child: const LeafDiseaseView(),
+    //         )),
+    //   ],
+    // );
   }
 }

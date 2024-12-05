@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/bloc/leaf_disease_state.dart';
 import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository.dart';
-import 'package:leaf_disease_app/src/components/details_page/bloc/leaf_disease_state.dart';
 import 'package:image/image.dart' as img;
 
 class LeafDiseaseCubit extends Cubit<LeafDiseaseState> {

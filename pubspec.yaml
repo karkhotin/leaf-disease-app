@@ -10,6 +10,7 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
+  blur: ^4.0.0
   camera: ^0.11.0+2
   copy_with_extension_gen: ^5.0.4
   equatable: ^2.0.7
