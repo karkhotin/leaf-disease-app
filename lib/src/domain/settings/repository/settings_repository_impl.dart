@@ -10,6 +10,9 @@ final class SettingsRepositoryImpl extends SettingsRepository {
     const AppSettings(),
   );
 
+  @override
+  AppSettings get settings => _settingsStreamController.value;
+
   SettingsRepositoryImpl({required SettingsDataProvider dataProvider}) : _dataProvider = dataProvider;
 
   Future<void> load() async {

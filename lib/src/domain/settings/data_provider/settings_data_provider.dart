@@ -1,5 +1,3 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
 abstract class SettingsDataProvider {
   Future<String?> getString(String key);
 

@@ -8,4 +8,6 @@ abstract class SettingsRepository {
   Future<void> setActiveLeafType(LeafType leafType);
 
   Stream<AppSettings> getSettingsStream();
+
+  AppSettings get settings;
 }
