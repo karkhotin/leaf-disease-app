@@ -17,7 +17,8 @@ final class LeafDiseaseTorchClassifierProvider extends LeafDiseaseClassifierProv
 
   @override
   LeafDiseaseClassifier provideClassifier(LeafType leafType) {
-    final config = _configs[leafType];
+    final config = _configs[LeafType.grape];
+    // final config = _configs[leafType];
     if (config == null) {
       throw AssertionError("Config for $leafType is missing!");
     }
