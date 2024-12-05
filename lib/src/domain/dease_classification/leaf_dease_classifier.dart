@@ -1,8 +1,12 @@
-
 import 'package:image/image.dart' as image_lib;
 
-enum LeafDease { dease1, dease2, dease3 }
+class LeafDeaseClassificationResult {
+  final String label;
+  final double confidence;
+
+  LeafDeaseClassificationResult({required this.label, required this.confidence});
+}
 
 abstract class LeafDeaseClassifier {
-  Map<LeafDease, double> classifyDease(image_lib.Image image);
+  Future<List<LeafDeaseClassificationResult>> classifyDease(image_lib.Image image);
 }

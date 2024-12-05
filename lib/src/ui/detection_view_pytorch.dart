@@ -15,7 +15,7 @@ class DetectionPytorchView extends StatefulWidget {
 class _DetectionPytorchViewState extends State<DetectionPytorchView> {
   final detector = LeafDetectorImpl();
   final imagePicker = ImagePicker();
-  String? imagePath;
+  String? _imagePath;
   List<Rect> _rects = [];
 
   @override
@@ -32,7 +32,9 @@ class _DetectionPytorchViewState extends State<DetectionPytorchView> {
             final result = await imagePicker.pickImage(
               source: ImageSource.gallery,
             );
-            imagePath = result?.path;
+            _imagePath = result?.path;
+            _rects = [];
+            setState(() {});
             _processImage();
           },
           child: Text("Push me!"),
@@ -46,12 +48,12 @@ class _DetectionPytorchViewState extends State<DetectionPytorchView> {
   }
 
   Future<void> _processImage() async {
-    if (imagePath == null) {
+    if (_imagePath == null) {
       setState(() {});
       return;
     }
 
-    final rects = await detector.detectLeafs(imagePath!);
+    final rects = await detector.detectLeafs(_imagePath!);
     log(rects.toString());
 
     _rects = rects;
@@ -59,13 +61,13 @@ class _DetectionPytorchViewState extends State<DetectionPytorchView> {
   }
 
   Widget _buildImage() {
-    if (imagePath == null) {
+    if (_imagePath == null) {
       return Container();
     }
     return Stack(
       children: [
         Image.file(
-          File(imagePath!),
+          File(_imagePath!),
         ),
         Positioned.fill(
           child: _buildRects(),
