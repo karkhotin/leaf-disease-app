@@ -15,6 +15,9 @@ PODS:
   - pytorch_lite (0.0.1):
     - Flutter
     - LibTorch (~> 1.13.0.1)
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
@@ -22,6 +25,7 @@ DEPENDENCIES:
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - pytorch_lite (from `.symlinks/plugins/pytorch_lite/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 SPEC REPOS:
   trunk:
@@ -38,6 +42,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   pytorch_lite:
     :path: ".symlinks/plugins/pytorch_lite/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
   camera_avfoundation: dd002b0330f4981e1bbcb46ae9b62829237459a4
@@ -46,6 +52,7 @@ SPEC CHECKSUMS:
   LibTorch: 8abfa5fc9d146230b31065a29b0502e1104956ea
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   pytorch_lite: 918b8dcad2cc52b17e24297a2e2b4c05fd921df2
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
