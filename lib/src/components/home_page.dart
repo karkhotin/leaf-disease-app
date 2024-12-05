@@ -1,9 +1,9 @@
+import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leaf_disease_app/src/components/details_page/ui/details_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:leaf_disease_app/src/components/live_detection/bloc/live_detection_bloc.dart';
+import 'package:leaf_disease_app/src/components/leaf_type_selection/ui/leaf_type_selection_radio_view.dart';
 import 'package:leaf_disease_app/src/components/live_detection/ui/live_detection_view.dart';
 import 'package:leaf_disease_app/src/components/settings_page/ui/settings_page.dart';
 
@@ -39,13 +39,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildCamera(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LiveDetectionBloc(
-        leafDiseaseDetectionRepository: context.read(),
-        settingsRepository: context.read(),
-      ),
-      child: LiveDetectionView(),
-    );
+    return LiveDetectionView();
   }
 
   Widget _buildCameraOverlay(BuildContext context) {
@@ -64,7 +58,19 @@ class _HomePageState extends State<HomePage> {
   Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Text("Planty 🌱", style: Theme.of(context).textTheme.headlineLarge),
+      child: Text(
+        "Planty 🌱",
+        // style: GoogleFonts.chewy(
+        //   textStyle: Theme.of(context).textTheme.headlineLarge,
+        // ),
+
+        style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w500),
+      ),
+    ).frosted(
+      blur: 10,
+      borderRadius: BorderRadius.all(
+        Radius.circular(16),
+      ),
     );
   }
 
@@ -84,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             label: Text(AppLocalizations.of(context)!.openFromGallery),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => _pickLeafType(),
             child: Icon(Icons.energy_savings_leaf_outlined),
           ),
         ],
@@ -106,7 +112,16 @@ class _HomePageState extends State<HomePage> {
       return;
     }
     Navigator.of(context).push(
-      DetailsPage.routeWithImagePath(imagePath: imagePath),
+      DetailsPage.routeWithImagePath(imagePath),
+    );
+  }
+
+  void _pickLeafType() async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: LeafTypeSelectionRadioView(),
+      ),
     );
   }
 }
