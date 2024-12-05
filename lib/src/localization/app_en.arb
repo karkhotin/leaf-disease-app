@@ -1,0 +1,6 @@
+{
+  "appTitle": "leaf_disease_app",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
