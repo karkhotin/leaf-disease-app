@@ -2,12 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leaf_disease_app/src/domain/leaf_detection/leaf_detector_impl.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pytorch_lite/pytorch_lite.dart';
 
 class DetectionPytorchView extends StatefulWidget {
   const DetectionPytorchView({super.key});
