@@ -27,12 +27,28 @@ extension LocalizationUtils on AppLocalizations {
     switch (label) {
       case 'Healthy':
         return disease_healthy;
+      case 'Diseased':
+        return disease_diseased;
       case 'Black measles':
         return disease_BlackMeasles;
       case 'Black rot':
         return disease_BlackRot;
       case 'Leaf blight':
         return disease_LeafBlight;
+      case 'Powdery mildew':
+        return disease_PowderyMildew;
+      case 'Curl':
+        return disease_Curl;
+      case 'Slug':
+        return disease_Slug;
+      case 'Spot':
+        return disease_Spot;
+      case 'Bacterial spot':
+        return disease_BacterialSpot;
+      case 'Apple scab':
+        return disease_AppleScab;
+      case 'Cedar apple rust':
+        return disease_CedarAppleRust;
       default:
         return label;
     }

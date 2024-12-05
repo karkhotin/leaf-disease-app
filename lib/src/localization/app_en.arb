@@ -30,7 +30,15 @@
   "detailsMoreInfoLink": "What is this?",
 
   "disease_healthy": "Healthy",
+  "disease_diseased": "Diseased",
   "disease_BlackMeasles": "Black measles",
   "disease_BlackRot": "Black rot",
-  "disease_LeafBlight": "Leaf blight"
+  "disease_LeafBlight": "Leaf blight",
+  "disease_PowderyMildew": "Powdery mildew",
+  "disease_Curl": "Curl",
+  "disease_Slug": "Slug",
+  "disease_Spot": "Spot",
+  "disease_BacterialSpot": "Bacterial spot",
+  "disease_AppleScab": "Apple scab",
+  "disease_CedarAppleRust": "Cedar apple rust"
 }

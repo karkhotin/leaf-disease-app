@@ -30,7 +30,16 @@
   "detailsMoreInfoLink": "Що це таке?",
 
   "disease_healthy": "Здоровий",
+  "disease_diseased": "Хворий",
   "disease_BlackMeasles": "Чорна кірка",
   "disease_BlackRot": "Чорна гниль",
-  "disease_LeafBlight": "Плямистий опік листя"
+  "disease_LeafBlight": "Плямистий опік листя",
+  "disease_LeafBlight": "Leaf blight",
+  "disease_PowderyMildew": "Борошниста роса",
+  "disease_Curl": "Скручування листя",
+  "disease_Slug": "Слизняк",
+  "disease_Spot": "Плямистість",
+  "disease_BacterialSpot": "Бактеріальна плямистість",
+  "disease_AppleScab": "Парша",
+  "disease_CedarAppleRust": "Іржа"
 }
