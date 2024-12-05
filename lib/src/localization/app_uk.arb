@@ -1,0 +1,36 @@
+{
+  "appTitle": "leaf_disease_app",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "openFromGallery": "Галерея",
+
+  "settingsTitle": "Налаштування",
+  "settingsTheme": "Тема",
+  "settingsThemeSystem": "Системна",
+  "settingsThemeLight": "Світла",
+  "settingsThemeDark": "Темна",
+  "settingsLanguage": "Мова",
+  "settingsLanguage_en": "Англійська",
+  "settingsLanguage_uk": "Українська",
+  "settingsLiveDetection": "Розпізнавання в реальному часі",
+  "settingsLeafType": "Вид дерева",
+
+  "leafType_apple": "Яблуко",
+  "leafType_apricot": "Абрикос",
+  "leafType_cherry": "Вишня",
+  "leafType_grape": "Виноград",
+  "leafType_peach": "Персик",
+  "leafType_pear": "Груша",
+  "leafType_walnut": "Горіх волоський",
+
+  "detailsTitle": "Деталі Розпізнавання",
+  "detailsNoLeafsFound": "Не знайдено жодного 🌱",
+  "detailsClassificationFailed": "Не вдалося виконати розпізнавання 💩",
+  "detailsMoreInfoLink": "Що це таке?",
+
+  "disease_healthy": "Здоровий",
+  "disease_BlackMeasles": "Чорна кірка",
+  "disease_BlackRot": "Чорна гниль",
+  "disease_LeafBlight": "Плямистий опік листя"
+}

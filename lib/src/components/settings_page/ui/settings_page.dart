@@ -42,6 +42,8 @@ class SettingsView extends StatelessWidget {
         children: [
           _wrapRow(_themeRow(context)),
           Divider(),
+          _wrapRow(_languageRow(context)),
+          Divider(),
           _wrapRow(_liveDetectionRow(context)),
           Divider(),
           _wrapRow(_leafTypeRow(context)),
@@ -80,6 +82,39 @@ class SettingsView extends StatelessWidget {
                 DropdownMenuItem(
                   value: AppTheme.dark,
                   child: Text(AppLocalizations.of(context)!.settingsThemeDark),
+                ),
+              ],
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _languageRow(BuildContext context) {
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      buildWhen: (previous, current) => previous.appSettings?.language != current.appSettings?.language,
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(AppLocalizations.of(context)!.settingsLanguage),
+            DropdownButton<AppLanguage>(
+              value: state.appSettings?.language ?? AppLanguage.system,
+              onChanged: (language) =>
+                  language != null ? context.read<SettingsBloc>().add(SettingsLanguageChanged(language)) : (),
+              items: [
+                DropdownMenuItem(
+                  value: AppLanguage.system,
+                  child: Text(AppLocalizations.of(context)!.settingsThemeSystem),
+                ),
+                DropdownMenuItem(
+                  value: AppLanguage.english,
+                  child: Text(AppLocalizations.of(context)!.settingsLanguage_en),
+                ),
+                DropdownMenuItem(
+                  value: AppLanguage.ukrainian,
+                  child: Text(AppLocalizations.of(context)!.settingsLanguage_uk),
                 ),
               ],
             )

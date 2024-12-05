@@ -45,6 +45,12 @@ final class SettingsRepositoryImpl extends SettingsRepository {
   }
 
   @override
+  Future<void> setLanguage(AppLanguage language) {
+    _settingsStreamController.add(_settingsStreamController.value.copyWith(language: language));
+    return _dataProvider.setInt(_SettingsKeys.appLanguageKey, language.index);
+  }
+
+  @override
   Future<void> setActiveLeafType(LeafType leafType) {
     _settingsStreamController.add(_settingsStreamController.value.copyWith(activeLeafType: leafType));
     return _dataProvider.setInt(_SettingsKeys.activeLeafTypeKey, leafType.index);
@@ -53,6 +59,7 @@ final class SettingsRepositoryImpl extends SettingsRepository {
 
 abstract class _SettingsKeys {
   static String appThemeKey = "app_theme";
+  static String appLanguageKey = "app_language";
   static String liveDetectionEnabledKey = "live_detection_enabled";
   static String activeLeafTypeKey = "active_leaf_type";
 }

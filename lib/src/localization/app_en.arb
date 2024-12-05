@@ -6,10 +6,13 @@
   "openFromGallery": "Photo Library",
 
   "settingsTitle": "Settings",
-  "settingsTheme": "App Theme",
+  "settingsTheme": "Theme",
   "settingsThemeSystem": "System",
   "settingsThemeLight": "Light",
   "settingsThemeDark": "Dark",
+  "settingsLanguage": "Language",
+  "settingsLanguage_en": "English",
+  "settingsLanguage_uk": "Ukrainian",
   "settingsLiveDetection": "Real-time leaf disease detection",
   "settingsLeafType": "Active Leaf Type",
 
@@ -19,5 +22,15 @@
   "leafType_grape": "Grape",
   "leafType_peach": "Peach",
   "leafType_pear": "Pear",
-  "leafType_walnut": "Walnut"
+  "leafType_walnut": "Walnut",
+
+  "detailsTitle": "Detection Details",
+  "detailsNoLeafsFound": "No leafs found 🌱",
+  "detailsClassificationFailed": "Failed to classify leafs 💩",
+  "detailsMoreInfoLink": "What is this?",
+
+  "disease_healthy": "Healthy",
+  "disease_BlackMeasles": "Black measles",
+  "disease_BlackRot": "Black rot",
+  "disease_LeafBlight": "Leaf blight"
 }

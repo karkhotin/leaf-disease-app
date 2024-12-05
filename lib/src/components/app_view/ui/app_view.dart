@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:leaf_disease_app/src/components/app_view/bloc/app_state.dart';
 import 'package:leaf_disease_app/src/components/home_page.dart';
 import 'package:leaf_disease_app/src/domain/settings/repository/settings.dart';
+import 'package:leaf_disease_app/src/utils/localization_utils.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
@@ -30,9 +31,8 @@ class AppView extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
-            Locale('en', ''), // English, no country code
-          ],
+          locale: state.language.locale,
+          supportedLocales: AppLocalizations.supportedLocales,
 
           // Use AppLocalizations to configure the correct application title
           // depending on the user's locale.
@@ -46,7 +46,7 @@ class AppView extends StatelessWidget {
           // SettingsController to display the correct theme.
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
-          themeMode: _themeModeFromAppTheme(state.appTheme),
+          themeMode: _themeModeFromAppTheme(state.theme),
 
           home: const HomePage(),
         );

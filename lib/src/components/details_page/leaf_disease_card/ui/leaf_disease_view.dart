@@ -85,7 +85,7 @@ class LeafDiseaseView extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  state.label,
+                  AppLocalizations.of(context)!.leafDisease(state.label),
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -120,13 +120,15 @@ class LeafDiseaseView extends StatelessWidget {
           ),
           onPressed: () async {
             final url = _googleUrl.replace(queryParameters: {
-              "q": ["${AppLocalizations.of(context)!.leafType(state.leafType)} ${state.label}"]
+              "q": [
+                "${AppLocalizations.of(context)!.leafType(state.leafType)} ${AppLocalizations.of(context)!.leafDisease(state.label)}"
+              ]
             });
             await launchUrl(url);
           },
           icon: const Icon(Icons.info_outlined),
           label: Text(
-            "What is this?",
+            AppLocalizations.of(context)!.detailsMoreInfoLink,
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),

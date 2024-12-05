@@ -9,6 +9,8 @@ part of 'settings.dart';
 abstract class _$AppSettingsCWProxy {
   AppSettings theme(AppTheme? theme);
 
+  AppSettings language(AppLanguage? language);
+
   AppSettings isLiveDetectionEnabled(bool? isLiveDetectionEnabled);
 
   AppSettings activeLeafType(LeafType? activeLeafType);
@@ -21,6 +23,7 @@ abstract class _$AppSettingsCWProxy {
   /// ````
   AppSettings call({
     AppTheme? theme,
+    AppLanguage? language,
     bool? isLiveDetectionEnabled,
     LeafType? activeLeafType,
   });
@@ -34,6 +37,9 @@ class _$AppSettingsCWProxyImpl implements _$AppSettingsCWProxy {
 
   @override
   AppSettings theme(AppTheme? theme) => this(theme: theme);
+
+  @override
+  AppSettings language(AppLanguage? language) => this(language: language);
 
   @override
   AppSettings isLiveDetectionEnabled(bool? isLiveDetectionEnabled) =>
@@ -53,6 +59,7 @@ class _$AppSettingsCWProxyImpl implements _$AppSettingsCWProxy {
   /// ````
   AppSettings call({
     Object? theme = const $CopyWithPlaceholder(),
+    Object? language = const $CopyWithPlaceholder(),
     Object? isLiveDetectionEnabled = const $CopyWithPlaceholder(),
     Object? activeLeafType = const $CopyWithPlaceholder(),
   }) {
@@ -61,6 +68,10 @@ class _$AppSettingsCWProxyImpl implements _$AppSettingsCWProxy {
           ? _value.theme
           // ignore: cast_nullable_to_non_nullable
           : theme as AppTheme?,
+      language: language == const $CopyWithPlaceholder()
+          ? _value.language
+          // ignore: cast_nullable_to_non_nullable
+          : language as AppLanguage?,
       isLiveDetectionEnabled:
           isLiveDetectionEnabled == const $CopyWithPlaceholder()
               ? _value.isLiveDetectionEnabled

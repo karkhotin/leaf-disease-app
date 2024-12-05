@@ -9,6 +9,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({required this.settingsRepository}) : super(SettingsState()) {
     on<SettingsLoadRequested>(_onLoadRequested);
     on<SettingsThemeChanged>(_onThemeChanged);
+    on<SettingsLanguageChanged>(_onLanguageChanged);
     on<SettingsLiveDetectionToggled>(_onLiveDetectionToggled);
     on<SettingsLeafTypeChanged>(_onLeafTypeChanged);
   }
@@ -26,6 +27,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     settingsRepository.setTheme(event.newTheme);
+  }
+
+  Future<void> _onLanguageChanged(
+    SettingsLanguageChanged event,
+    Emitter<SettingsState> emit,
+  ) async {
+    settingsRepository.setLanguage(event.newLanguage);
   }
 
   Future<void> _onLiveDetectionToggled(

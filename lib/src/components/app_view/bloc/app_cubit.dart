@@ -13,7 +13,10 @@ class AppCubit extends Cubit<AppState> {
 
   void load() {
     _settingsSubscription = settingsRepository.getSettingsStream().listen((settings) {
-      emit(AppState(appTheme: settings.theme));
+      emit(AppState(
+        theme: settings.theme,
+        language: settings.language,
+      ));
     });
   }
 

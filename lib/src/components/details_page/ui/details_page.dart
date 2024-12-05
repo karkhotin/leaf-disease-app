@@ -6,6 +6,7 @@ import 'package:leaf_disease_app/src/components/details_page/bloc/details_cubit.
 import 'package:leaf_disease_app/src/components/details_page/bloc/details_state.dart';
 import 'package:leaf_disease_app/src/components/details_page/leaf_disease_card/ui/leaf_disease_view.dart';
 import 'package:image/image.dart' as img;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({super.key});
@@ -40,7 +41,7 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details Page"),
+        title: Text(AppLocalizations.of(context)!.detailsTitle),
       ),
       body: SafeArea(
         child: BlocBuilder<DetailsCubit, DetailsState>(builder: (context, state) {
@@ -70,7 +71,7 @@ class DetailsPage extends StatelessWidget {
   Widget _buildEmptyResultsPage(BuildContext context) {
     return Center(
       child: Text(
-        "No leafs found 🌱",
+        AppLocalizations.of(context)!.detailsNoLeafsFound,
         style: TextStyle(fontSize: 20),
       ),
     );
@@ -79,7 +80,7 @@ class DetailsPage extends StatelessWidget {
   Widget _buildErrorPage(BuildContext context) {
     return Center(
       child: Text(
-        "Failed to classify leafs 💩",
+        AppLocalizations.of(context)!.detailsClassificationFailed,
         style: TextStyle(fontSize: 20),
       ),
     );

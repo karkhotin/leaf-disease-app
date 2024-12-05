@@ -14,6 +14,12 @@ final class SettingsThemeChanged extends SettingsEvent {
   const SettingsThemeChanged(this.newTheme);
 }
 
+final class SettingsLanguageChanged extends SettingsEvent {
+  final AppLanguage newLanguage;
+
+  const SettingsLanguageChanged(this.newLanguage);
+}
+
 final class SettingsLiveDetectionToggled extends SettingsEvent {
   const SettingsLiveDetectionToggled();
 }
