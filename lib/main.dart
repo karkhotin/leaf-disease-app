@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:leaf_disease_app/src/domain/disease_classification/classifier_factory/leaf_disease_torch_classifier_provider.dart';
+import 'package:leaf_disease_app/src/domain/disease_classification/classifier_factory/leaf_disease_tflite_classifier_provider.dart';
 import 'package:leaf_disease_app/src/domain/disease_detection/leaf_disease_detection_repository_impl.dart';
 import 'package:leaf_disease_app/src/domain/settings/data_provider/settings_shared_preferences_data_provider.dart';
 import 'package:leaf_disease_app/src/domain/settings/repository/settings_repository_impl.dart';
@@ -17,7 +17,7 @@ void main() async {
   await settingsRepository.load();
 
   final leafDetector = LeafTorchDetector();
-  final leafDiseaseClassifierProvider = LeafDiseaseTorchClassifierProvider();
+  final leafDiseaseClassifierProvider = LeafDiseaseTfLiteClassifierProvider();
   final leafDiseaseDetectionRepository = LeafDiseaseDetectionRepositoryImpl(
     leafDetector: leafDetector,
     leafDiseaseClassifierProvider: leafDiseaseClassifierProvider,

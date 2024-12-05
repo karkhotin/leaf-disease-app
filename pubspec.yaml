@@ -27,6 +27,7 @@ dependencies:
   pytorch_lite: ^4.3.0
   rxdart: ^0.28.0
   shared_preferences: ^2.3.3
+  tflite_flutter: ^0.11.0
   url_launcher: ^6.3.1
   visibility_detector: ^0.4.0+2
 
