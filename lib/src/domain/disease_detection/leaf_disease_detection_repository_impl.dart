@@ -19,7 +19,7 @@ final class LeafDiseaseDetectionRepositoryImpl extends LeafDiseaseDetectionRepos
 
   @override
   Future<List<LeafDiseaseDetectionResult>> detectDiseases(img.Image image, LeafType leafType) async {
-    final leafs = await _leafDetector.detectLeafsFromImage(image);
+    final leafs = await _leafDetector.detectLeafs(image);
     if (leafs.isEmpty) {
       return [];
     }

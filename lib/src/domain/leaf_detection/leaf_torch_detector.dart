@@ -8,7 +8,7 @@ class LeafTorchDetector extends LeafDetector {
   late final Future<ModelObjectDetection> _model = _loadModel();
 
   @override
-  Future<List<Rect>> detectLeafsFromImage(img.Image image) async {
+  Future<List<Rect>> detectLeafs(img.Image image) async {
     final model = await _model;
     final imageBytes = await ImageUtils.encodeJpgImage(image);
     List<ResultObjectDetection> predictions =
